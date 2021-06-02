@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      .btn-area {
+        width: 280px;
+        padding: 10px;
+        text-align: center;
+        border: none;
+      }
+      button {
+        width: 90%;
+        margin: 5px;
+        padding: 5px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      #toggle {
+        background-color: #ddd;
+      }
+      #register {
+        background-color: #009688;
+        color: #fff;
+      }
+      #redirect {
+        background-color: #fff;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="btn-area">
+      <span class="msg"></span>
+      <button style="display:none" id="display">背景を切り替え</button>
+      <button style="display:none" id="toggle">有効に戻す</button>
+      <button style="display:none" id="register">背景の登録</button>
+      <button id="redirect">登録済一覧へ</button>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

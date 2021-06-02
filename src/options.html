@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      body {
+        font-family: "メイリオ";
+        background-color: #efefef;
+      }
+      table {
+        border-collapse: collapse;
+        background-color: #fff;
+      }
+      th, td {
+        border-top: 1px solid #ccc;
+        padding: 10px;
+      }
+      input[type="text"] {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 5px;
+      }
+      button {
+        padding: 5px;
+      }
+      .color {
+        margin-left: 3px;
+      }
+      .wd30per {
+        width: 30%;
+      }
+      .wd90per {
+        width: 90%;
+      }
+      .mgt10px {
+        margin-top: 10px;
+      }
+      .message {
+        font-size:10px;
+      }
+      .attention {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      <image src="icon128.png" width="100px">
+      Change background each env
+    </h1>
+    <h2 id="h2-list">登録済みのサイト</h2>
+    <table id="tbl-list">
+      <thead>
+        <tr>
+          <th class="wd30per">Host</th>
+          <th>Target selector</th>
+          <th>Background color code</th>
+          <th>Active</th>
+          <th>Update</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody class="js-show">
+      </tbody>
+    </table>
+
+    <h2>新たに登録する</h2>
+    <table>
+      <tr>
+        <th>host</th>
+        <td><input type="text" name="host"></td>
+      </tr>
+      <tr>
+        <th>target</th>
+        <td class="wd90per">
+          <input type="text" name="target">
+          <span class="message">背景色を上書きしたい要素を指定してください。ex) body , .bg-color , #content</span>
+        </td>
+      </tr>
+      <tr>
+        <th>color</th>
+        <td><input type="color" name="color"></td>
+      </tr>
+    </table>
+    <button id="register" class="mgt10px">register</button>
+    <script src="options.js"></script>
+  </body>
+</html>
