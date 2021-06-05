@@ -3,7 +3,9 @@
   window.onload = function() {
 
     chrome.storage.local.get('data', function(param) {
-
+      if (!param.data) {
+        return 0;
+      }
       param.data.forEach((items) => {
         if (hostname === items.host && items.active) {
           setBg(items);
@@ -19,8 +21,10 @@
 
     chrome.storage.local.get('data', function(param) {
 
+      if (param.data) {
+        return 0;
+      }
       param.data.forEach((items) => {
-
         if (hostname === items.host) {
             if (request.type === 'show') {
               setBg(items);
