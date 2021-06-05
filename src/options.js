@@ -9,28 +9,29 @@
       const tbody      = document.querySelector('.js-show');
       const host_param = getHostParam();
 
-      let cnt = 0;
-      param.data.forEach((items, index) => {
-        cnt++;
-        let tgl = (items.active) ? '[Now valid] 無効にする': '[Now invalid] 有効にする';
-        let attention = (host_param === items.host)? 'attention' : '';
-        let tr = "<tr>" +
-                    `<td class="${attention}">${items.host}</td>` +
-                    `<td><input type="text" name="item[${items.host}][target]" value="${items.target}"></td>` +
-                    `<td><input type="color" name="item[${items.host}][color]" value="${items.color}"><span class="color">${items.color}</span></td>` +
-                    `<td><button class="toggle" data-host="${items.host}">${tgl}</button></td>` +
-                    `<td><button class="update" data-host="${items.host}">update</button></td>` +
-                    `<td><button class="remove" data-host="${items.host}">remove</button></td>` +
-                 "</tr>";
-          tbody.insertAdjacentHTML('beforeend', tr);
-      });
-      if (cnt === 0) {
+      if (param.data) {
+        param.data.forEach((items, index) => {
+          cnt++;
+          let tgl = (items.active) ? '[Now valid] 無効にする': '[Now invalid] 有効にする';
+          let attention = (host_param === items.host)? 'attention' : '';
+          let tr = "<tr>" +
+                      `<td class="${attention}">${items.host}</td>` +
+                      `<td><input type="text" name="item[${items.host}][target]" value="${items.target}"></td>` +
+                      `<td><input type="color" name="item[${items.host}][color]" value="${items.color}"><span class="color">${items.color}</span></td>` +
+                      `<td><button class="toggle" data-host="${items.host}">${tgl}</button></td>` +
+                      `<td><button class="update" data-host="${items.host}">update</button></td>` +
+                      `<td><button class="remove" data-host="${items.host}">remove</button></td>` +
+                   "</tr>";
+            tbody.insertAdjacentHTML('beforeend', tr);
+        });
+        if (host_param) {
+          alert('背景の登録を行いました。上書きする要素や背景色をデフォルトから更新してください。');
+        }
+      } else {
         const table = document.querySelector('#tbl-list');
         const h2    = document.querySelector('#h2-list');
         table.style.display = 'none';
         h2.style.display = 'none';
-      } else if (host_param) {
-          alert('背景の登録を行いました。上書きする要素や背景色をデフォルトから更新してください。');
       }
     });
   };

@@ -6,8 +6,8 @@
   const rdtbtn  = document.querySelector('#redirect');
   const msg     = document.querySelector('.msg');
   let hostname = null;
-  let showFlg = true;
-  let active  = null;
+  let showFlg  = true;
+  let active   = null;
 
 
   /**
@@ -22,12 +22,14 @@
         msg.innerHTML = hostname = a.hostname;
 
         let already = false;
-        param.data.forEach((items) => {
-          if (hostname === items.host) {
-            already = true;
-            active = items.active;
-          }
-        });
+        if (param.data) {
+          param.data.forEach((items) => {
+            if (hostname === items.host) {
+              already = true;
+              active = items.active;
+            }
+          });
+        }
 
         if (already) {
           if (active) {
