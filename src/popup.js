@@ -99,8 +99,8 @@
       }
 
       chrome.storage.local.get('data', function(param) {
-        param.data.push(row);
-        chrome.storage.local.set({'data': param.data});
+        let rows = (param.data)? param.data.push(row) : [row];
+        chrome.storage.local.set({'data': rows});
       });
       // go to option.html
       const url = chrome.extension.getURL("options.html");

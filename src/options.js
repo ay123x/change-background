@@ -11,7 +11,6 @@
 
       if (param.data) {
         param.data.forEach((items, index) => {
-          cnt++;
           let tgl = (items.active) ? '[Now valid] 無効にする': '[Now invalid] 有効にする';
           let attention = (host_param === items.host)? 'attention' : '';
           let tr = "<tr>" +
