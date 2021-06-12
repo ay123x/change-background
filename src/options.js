@@ -9,7 +9,7 @@
       const tbody      = document.querySelector('.js-show');
       const host_param = getHostParam();
 
-      if (param.data) {
+      if (Array.isArray(param.data)) {
         param.data.forEach((items, index) => {
           let tgl = (items.active) ? '[Now valid] 無効にする': '[Now invalid] 有効にする';
           let attention = (host_param === items.host)? 'attention' : '';

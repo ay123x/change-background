@@ -22,7 +22,7 @@
         msg.innerHTML = hostname = a.hostname;
 
         let already = false;
-        if (param.data) {
+        if (Array.isArray(param.data)) {
           param.data.forEach((items) => {
             if (hostname === items.host) {
               already = true;
@@ -55,9 +55,18 @@
       const tab = e.shift();
       if (tab.status === 'complete') {
         const type = showFlg? 'hide' : 'show';
-          chrome.tabs.sendMessage(tab.id, {type: type}, () => {
-            showFlg = showFlg? false : true;
-            msg.innerHTML = '切り替えが完了しました。';
+          chrome.tabs.sendMessage(tab.id, {type: type}, (success) => {
+            if (success) {
+              if (showFlg) {
+                showFlg = false;
+                msg.innerHTML = '表示OFFに切り替えました。';
+              } else {
+                showFlg = true;
+                msg.innerHTML = '表示ONに切り替えました。';
+              }
+            } else {
+              msg.innerHTML = '切り替えに失敗しました。';
+            }
             setTimeout(() => {
               msg.innerHTML = hostname;
               btn.disabled = false;
@@ -99,8 +108,13 @@
       }
 
       chrome.storage.local.get('data', function(param) {
-        let rows = (param.data)? param.data.push(row) : [row];
-        chrome.storage.local.set({'data': rows});
+        if (Array.isArray(param.data)) {
+          param.data.push(row);
+          chrome.storage.local.set({'data': param.data});
+        } else {
+          chrome.storage.local.remove('data');
+          chrome.storage.local.set({'data': [row]});
+        }
       });
       // go to option.html
       const url = chrome.extension.getURL("options.html");

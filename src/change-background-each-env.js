@@ -1,9 +1,8 @@
 {
   const hostname = window.location.hostname;
   window.onload = function() {
-
     chrome.storage.local.get('data', function(param) {
-      if (!param.data) {
+      if (!Array.isArray(param.data)) {
         return 0;
       }
       param.data.forEach((items) => {
@@ -21,26 +20,29 @@
 
     chrome.storage.local.get('data', function(param) {
 
-      if (param.data) {
-        return 0;
+      if (!Array.isArray(param.data)) {
+        callback(false);
+        return true;
       }
+
       param.data.forEach((items) => {
         if (hostname === items.host) {
-            if (request.type === 'show') {
-              setBg(items);
+          let result = false;
+          if (request.type === 'show') {
+            result = setBg(items);
 
-            } else if (request.type === 'hide') {
-              setBg(items, true);
+          } else if (request.type === 'hide') {
+            result = setBg(items, true);
 
-            } else if (request.type === 'active') {
-              toggleBackground(items.host);
-              setBg(items);
-            }
-
+          } else if (request.type === 'active') {
+            toggleBackground(items.host);
+            result = setBg(items);
           }
+          callback(result);
+          return true;
+        }
       });
     });
-    callback();
     return true;
   });
 
@@ -76,11 +78,14 @@
 
   /**
    * 背景のセット・クリア
-   * @param Array items
+   * @param Object items
    * @param Boolean isClear
    */
    function setBg(items, isClear = false) {
     let target = document.querySelectorAll(items.target);
+    if(target.length === 0) {
+      return false;
+    }
     if (isClear) {
       target[0].style.cssText = null;
     } else {
